@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EmployeeConnect</title>
+</head>
+<body>
+
+<form id="form">
+    <p>
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" required>
+    </p>
+    <p>
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" required>
+    </p>
+    <p>
+        <label for="date_of_birth">Date of birth</label>
+        <input type="date" id="date_of_birth" required>
+    </p>
+    <p>
+        <legend>Are you employed?</legend>
+        <input type="radio" id="yes" name="employment" required>
+        <label for="yes">Yes</label>
+
+        <input type="radio" id="no" name="employment" required>
+        <label for="no">No</label>
+    </p>
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>
+<div id="output">
+    <p>Logs:</p>
+</div>
+
+
+
+<script src="index.mjs">
+
+</script>
+</body>
+</html>
