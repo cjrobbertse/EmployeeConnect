@@ -7,5 +7,5 @@ EmployeeConnect  is a distributed live client-server based application that allo
 Start the server by running the following command in the `server` directory:
 
 ```shell
-node index.js
+node index.mjs
 ```
