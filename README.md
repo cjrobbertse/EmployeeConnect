@@ -9,3 +9,5 @@ Start the server by running the following command in the `server` directory:
 ```shell
 node index.mjs
 ```
+
+> **Note**: the file extension is `.mjs`
