@@ -1,6 +1,7 @@
 import { WebSocketServer } from 'ws'
 
 const server = new WebSocketServer({port: 8080})
+console.log('The server started successfully.\nThe server awaits connections...\n')
 
 server.on('connection', socket => {
     socket.on('error', console.error)
