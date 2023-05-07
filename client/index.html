@@ -6,31 +6,32 @@
 </head>
 <body>
 
-<form id="form">
+<form id="employee_form">
     <p>
         <label for="first_name">First name</label>
-        <input type="text" id="first_name" required>
+        <input type="text" id="first_name" name="first_name" required>
     </p>
     <p>
         <label for="last_name">Last name</label>
-        <input type="text" id="last_name" required>
+        <input type="text" id="last_name" name="last_name" required>
     </p>
     <p>
         <label for="date_of_birth">Date of birth</label>
-        <input type="date" id="date_of_birth" required>
+        <input type="date" id="date_of_birth" name="date_of_birth" required>
     </p>
     <p>
-        <legend>Are you employed?</legend>
-        <input type="radio" id="yes" name="employment" required>
+        Are you employed?
+        <input type="radio" id="yes" name="employment" value="yes" required>
         <label for="yes">Yes</label>
 
-        <input type="radio" id="no" name="employment" required>
+        <input type="radio" id="no" name="employment" value="no" required>
         <label for="no">No</label>
     </p>
     <p>
-        <input type="submit" value="Submit">
+        <button type="button" onclick="submitForm()">Submit</button>
     </p>
 </form>
+
 <div id="output">
     <p>Logs:</p>
 </div>
