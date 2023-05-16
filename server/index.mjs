@@ -34,25 +34,29 @@ server.on('connection', socket => {
         // Validate JSON object
         try {
             await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
-            console.log(`Employee schema validation passed`)
-        } catch (e) {
-            console.log(`Error: Employee schema validation failed.`, e.message)
-        }
+            console.log(`Employee schema validation passed`, )
+        } catch (e) { console.log(`Error: Employee schema validation failed.`, e.message) }
 
+        const payload = {}
 
-
-        if (!message) {
-            socket.send('test')
-            return
-        }
-
-        // Broadcast the message to all connected clients
-        server.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                console.log(`lets send message: ${message}`)
-                client.send(message.toString());
+        if (true) {
+            payload.error = {
+                message: 'error message'
             }
-        });
+            console.log(payload)
+            socket.send(JSON.stringify(payload))
+        }
+        else {
+            payload.employee = messageJSON
+
+            // Broadcast the message to all connected clients
+            server.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN) {
+                    console.log(`lets send message: ${message}`)
+                    client.send(message.toString());
+                }
+            });
+        }
     });
 
     // Handle socket closure
