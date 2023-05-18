@@ -17,9 +17,9 @@ function parseMessageToJSON(message) {
     try {
         messageJSON = JSON.parse(messageString)
     } catch (e) {
-        return { error: `Error: Could not convert message to JSON`, messageJSON: null}
+        return { parsingError: { message: `Error: Could not convert message to JSON` }, messageJSON: null}
     }
-    return { error: null, messageJSON: messageJSON}
+    return { parsingError: null, messageJSON: messageJSON}
 }
 
 async function validateEmployee(messageJSON) {
@@ -79,10 +79,11 @@ server.on('connection', socket => {
 
         const { error, employee } = await validateMessage(message)
         if (error) {
+            console.log(error.message)
             sendFailure(error.message)
+        } else {
+            broadcastNewEmployee(employee)
         }
-
-        broadcastNewEmployee(employee)
     });
 
     // Handle socket closure
