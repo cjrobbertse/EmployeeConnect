@@ -24,12 +24,12 @@ function parseMessageToJSON(message) {
 
 async function validateEmployee(messageJSON) {
     // Validate JSON object
-    try {
-        await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
-        console.log(`Employee schema validation passed`, )
-    } catch (e) {
-        console.log(`Error: Employee schema validation failed.`, e.message)
+
+    const { error, value } = await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
+    if (error) {
+        return { error: error.message, value: null }
     }
+    return { error: null, value: value }
 }
 
 async function validateMessage(message) {
@@ -45,10 +45,13 @@ async function validateMessage(message) {
 }
 
 function broadcastNewEmployee (employee) {
+    const employeePayload = {
+        employee: employee
+    }
     // Broadcast the message to all connected clients
     server.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(employee))
+            client.send(JSON.stringify(employeePayload))
         }
     })
 }
