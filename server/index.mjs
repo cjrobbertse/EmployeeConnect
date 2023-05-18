@@ -11,52 +11,75 @@ const employeeSchema = Joi.object({
     employment: Joi.boolean().required(),
 })
 
+function parseMessageToJSON(message) {
+    const messageString = message.toString()
+    let messageJSON
+    try {
+        messageJSON = JSON.parse(messageString)
+    } catch (e) {
+        return { error: `Error: Could not convert message to JSON`, messageJSON: null}
+    }
+    return { error: null, messageJSON: messageJSON}
+}
+
+async function validateEmployee(messageJSON) {
+    // Validate JSON object
+    try {
+        await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
+        console.log(`Employee schema validation passed`, )
+    } catch (e) {
+        console.log(`Error: Employee schema validation failed.`, e.message)
+    }
+}
+
+async function validateMessage(message) {
+    const { parsingError, messageJSON } = parseMessageToJSON(message)
+    if (parsingError) {
+        return { error: parsingError, value: null }
+    }
+    const { employeeError, employeeJSON } = await validateEmployee(messageJSON)
+    if (employeeError) {
+        return { error: employeeError, value: null}
+    }
+    return { error: null, value: employeeJSON }
+}
+
+function broadcastNewEmployee (employee) {
+    // Broadcast the message to all connected clients
+    server.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(employee))
+        }
+    })
+}
+
+// listen for new connections
 server.on('connection', socket => {
+    function sendFailure (errorMessage) {
+        const errorPayload = {
+            error: {
+                message: errorMessage
+            }
+        }
+        socket.send(JSON.stringify(errorPayload))
+    }
+
     // Log any errors
     socket.on('error', console.error)
 
-    console.log('\nClient connected');
+    console.log('\nClient connected')
 
     // Handle incoming messages
     socket.on('message', async (message) => {
-        console.log(`\nMessage received:`, message)
+        // Assuming that the message will always be a string by default
+        console.log(`\nMessage received:`, message.toString())
 
-        // The message is of the type 'RawData', so test and convert the RawData to String
-        try { console.log(`Message as String:`, message.toString()) }
-        catch (e) { console.log(`Error: Could not convert message to String`) }
-        const messageString = message.toString()
-
-        // Test that the message String is a JSON and convert it to JSON
-        try { console.log(`Message as JSON:`, JSON.parse(messageString)) }
-        catch (e) { console.log(`Error: Could not convert message String to JSON`) }
-        const messageJSON = JSON.parse(messageString)
-
-        // Validate JSON object
-        try {
-            await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
-            console.log(`Employee schema validation passed`, )
-        } catch (e) { console.log(`Error: Employee schema validation failed.`, e.message) }
-
-        const payload = {}
-
-        if (true) {
-            payload.error = {
-                message: 'error message'
-            }
-            console.log(payload)
-            socket.send(JSON.stringify(payload))
+        const { error, employee } = await validateMessage(message)
+        if (error) {
+            sendFailure(error.message)
         }
-        else {
-            payload.employee = messageJSON
 
-            // Broadcast the message to all connected clients
-            server.clients.forEach((client) => {
-                if (client.readyState === WebSocket.OPEN) {
-                    console.log(`lets send message: ${message}`)
-                    client.send(message.toString());
-                }
-            });
-        }
+        broadcastNewEmployee(employee)
     });
 
     // Handle socket closure
