@@ -24,9 +24,7 @@ function parseMessageToJSON(message) {
 
 async function validateEmployee(messageJSON) {
     // Validate JSON object
-
     const { error, value } = employeeSchema.validate(messageJSON, { abortEarly: false })
-
     if (error) {
         return { employeeError: { message: error.message}, employeeJSON: null }
     }
