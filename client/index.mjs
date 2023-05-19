@@ -7,7 +7,14 @@ socket.addEventListener('open', (event) => {
 
 // Listen for messages
 socket.addEventListener('message', (event) => {
+    console.log(event.data)
     const jsonObject = JSON.parse(event.data)
+    
+
+    if ('error' in jsonObject) {
+        console.log(jsonObject.error.message)
+    }
+
     // Format the data and display it in the HTML element
     const formattedData = `
         New employee created<br>
