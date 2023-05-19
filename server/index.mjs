@@ -25,23 +25,24 @@ function parseMessageToJSON(message) {
 async function validateEmployee(messageJSON) {
     // Validate JSON object
 
-    const { error, value } = await employeeSchema.validateAsync(messageJSON, { abortEarly: false })
+    const { error, value } = employeeSchema.validate(messageJSON, { abortEarly: false })
+
     if (error) {
-        return { error: error.message, value: null }
+        return { employeeError: { message: error.message}, employeeJSON: null }
     }
-    return { error: null, value: value }
+    return { employeeError: null, employeeJSON: value }
 }
 
 async function validateMessage(message) {
     const { parsingError, messageJSON } = parseMessageToJSON(message)
     if (parsingError) {
-        return { error: parsingError, value: null }
+        return { error: parsingError, employee: null }
     }
     const { employeeError, employeeJSON } = await validateEmployee(messageJSON)
     if (employeeError) {
-        return { error: employeeError, value: null}
+        return { error: employeeError, employee: null}
     }
-    return { error: null, value: employeeJSON }
+    return { error: null, employee: employeeJSON }
 }
 
 function broadcastNewEmployee (employee) {
