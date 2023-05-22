@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import EmployeeForm from "./pages/EmployeeForm/EmployeeForm";
+import EmployeeDetails from "./pages/EmployeeDetails/EmployeeDetails";
 import Layout from "./components/Layout/Layout";
 
 function App(): ReactElement {
