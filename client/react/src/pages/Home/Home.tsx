@@ -1,6 +1,8 @@
 import React, { useState, FormEventHandler } from "react";
 import Input from "../../components/Input/Input";
 import inputData from "../../components/Input/inputData.json";
+import HomeStyles from "./HomeStyles";
+import SkinnyBanner from "../../components/SkinnyBanner/SkinnyBanner";
 
 const socket = new WebSocket("ws://localhost:8080");
 
@@ -67,25 +69,29 @@ const Home = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {inputData.map(({ label, type, id }) => (
-        <Input
-          {...(type === "checkbox"
-            ? { label, type, id, checked: formState[id] as boolean }
-            : {
-                label,
-                type,
-                id,
-                value: formState[id] as string,
-              })}
-          onChange={(e) =>
-            handleState(id, e.currentTarget.value || e.currentTarget.checked)
-          }
-        />
-      ))}
-      <button type="submit">Submit</button>
-      <pre>{JSON.stringify(formState, null, 2)}</pre>
-    </form>
+    <HomeStyles>
+      <SkinnyBanner bannerHeading="Employee Details Form" />
+      <h3>Please provide the following details:</h3>
+      <form onSubmit={handleSubmit}>
+        {inputData.map(({ label, type, id }) => (
+          <Input
+            {...(type === "checkbox"
+              ? { label, type, id, checked: formState[id] as boolean }
+              : {
+                  label,
+                  type,
+                  id,
+                  value: formState[id] as string,
+                })}
+            onChange={(e) =>
+              handleState(id, e.currentTarget.value || e.currentTarget.checked)
+            }
+          />
+        ))}
+        <button type="submit">Submit</button>
+        <pre>{JSON.stringify(formState, null, 2)}</pre>
+      </form>
+    </HomeStyles>
   );
 };
 export default Home;

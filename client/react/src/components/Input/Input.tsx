@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler, HTMLInputTypeAttribute } from "react";
+import InputStyles from "./InputStyles";
 
 interface InputProps {
   id?: string;
@@ -10,8 +11,9 @@ interface InputProps {
 }
 const Input = ({ label, type, value, onChange, id, checked }: InputProps) => {
   return (
-    <p>
+    <InputStyles>
       <label htmlFor={id}>{label}</label>
+      <br />
       <input
         type={type}
         id={id}
@@ -21,7 +23,7 @@ const Input = ({ label, type, value, onChange, id, checked }: InputProps) => {
         checked={checked}
         onChange={onChange}
       />
-    </p>
+    </InputStyles>
   );
 };
 export default Input;
