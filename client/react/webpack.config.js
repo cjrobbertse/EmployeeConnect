@@ -71,13 +71,13 @@ module.exports = {
       template: "./public/index.html",
       favicon: "./public/favicon.ico",
     }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(process.cwd(), "public/assets/images"),
-    //       to: "assets/images",
-    //     },
-    //   ],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(process.cwd(), "public/assets/images"),
+          to: "assets/images",
+        },
+      ],
+    }),
   ],
 };

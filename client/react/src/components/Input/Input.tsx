@@ -8,13 +8,23 @@ interface InputProps {
   value?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   checked?: boolean;
+  placeholder?: string;
 }
-const Input = ({ label, type, value, onChange, id, checked }: InputProps) => {
+const Input = ({
+  label,
+  type,
+  value,
+  onChange,
+  id,
+  checked,
+  placeholder,
+}: InputProps) => {
   return (
     <InputStyles>
       <label htmlFor={id}>{label}</label>
       <br />
       <input
+        placeholder={placeholder}
         type={type}
         id={id}
         name={label}

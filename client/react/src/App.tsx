@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Home from "./pages/Home/Home";
+import EmployeeForm from "./pages/EmployeeForm/EmployeeForm";
 import Layout from "./components/Layout/Layout";
 
 function App(): ReactElement {
@@ -9,9 +9,9 @@ function App(): ReactElement {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/employee-details" element={<Home />} />
-          <Route path="/employee-form" element={<Home />} />
+          <Route path="/" element={<EmployeeForm />} />
+          <Route path="/employee-details" element={<EmployeeDetails />} />
+          <Route path="/employee-form" element={<EmployeeForm />} />
         </Routes>
       </Layout>
     </BrowserRouter>

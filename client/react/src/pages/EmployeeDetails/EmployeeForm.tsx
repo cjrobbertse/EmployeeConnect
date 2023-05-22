@@ -1,8 +1,10 @@
 import React, { useState, FormEventHandler } from "react";
 import Input from "../../components/Input/Input";
 import inputData from "../../components/Input/inputData.json";
-import HomeStyles from "./HomeStyles";
+import EmployeeFormStyles from "./EmployeeFormStyles";
 import SkinnyBanner from "../../components/SkinnyBanner/SkinnyBanner";
+import HeroBanner from "../../components/HeroBanner/HeroBanner";
+import WorkingBackground from "../../../public/assets/images/working-background.png";
 
 const socket = new WebSocket("ws://localhost:8080");
 
@@ -41,7 +43,7 @@ function calculateAge(dateOfBirth: string) {
   return age;
 }
 
-const Home = () => {
+const EmployeeForm = () => {
   const [formState, changeFormState] = useState<
     Record<string, string | boolean>
   >({});
@@ -69,7 +71,8 @@ const Home = () => {
   };
 
   return (
-    <HomeStyles>
+    <EmployeeFormStyles>
+      <HeroBanner heroBannerImage={WorkingBackground} />
       <SkinnyBanner bannerHeading="Employee Details Form" />
       <h3>Please provide the following details:</h3>
       <form onSubmit={handleSubmit}>
@@ -91,7 +94,7 @@ const Home = () => {
         <button type="submit">Submit</button>
         <pre>{JSON.stringify(formState, null, 2)}</pre>
       </form>
-    </HomeStyles>
+    </EmployeeFormStyles>
   );
 };
-export default Home;
+export default EmployeeForm;

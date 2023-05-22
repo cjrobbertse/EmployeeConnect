@@ -4,6 +4,7 @@ const HeroBannerStyles = styled.div`
   width: 100%;
   height: 250px;
   box-shadow: 1px 1px 3px #373535;
+  margin-top: 5%;
   & h1 {
     width: 40%;
     color: #4d5866;
