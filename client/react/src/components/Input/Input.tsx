@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, HTMLInputTypeAttribute } from "react";
 import InputStyles from "./InputStyles";
 
+//Typed properties of the component
 interface InputProps {
   id?: string;
   label: string;
@@ -10,6 +11,7 @@ interface InputProps {
   checked?: boolean;
   placeholder?: string;
 }
+// Input easily combines the label and input components for use as a reusable component
 const Input = ({
   label,
   type,

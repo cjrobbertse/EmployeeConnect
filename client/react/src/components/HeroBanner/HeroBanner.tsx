@@ -1,23 +1,17 @@
 import React from "react";
 import HeroBannerStyles from "./HeroBannerStyles";
+
+//Typed properties of the component
 interface HeroBannerProps {
-  heroBannerHeading?: string;
-  heroBannerText?: string;
   heroBannerImage?: string;
-  heroBannerClass?: string;
 }
 
-const HeroBanner = ({
-  heroBannerHeading,
-  heroBannerText,
-  heroBannerImage,
-  heroBannerClass
-}: HeroBannerProps) => {
+/* Hero Banner displays an image at the top of a page*/
+const HeroBanner = ({ heroBannerImage }: HeroBannerProps) => {
   return (
-    <HeroBannerStyles className={heroBannerClass}>
+    <HeroBannerStyles>
+      {/*Hero banner accepts an image */}
       <img src={heroBannerImage} alt="Hero" />
-      <h1>{heroBannerHeading}</h1>
-      <p>{heroBannerText}</p>
     </HeroBannerStyles>
   );
 };

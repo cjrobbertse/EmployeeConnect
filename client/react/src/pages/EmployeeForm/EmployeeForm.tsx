@@ -44,9 +44,11 @@ function calculateAge(dateOfBirth: string) {
 }
 
 const EmployeeForm = () => {
+  // Used to handle the state inputted into the form
   const [formState, changeFormState] = useState<
     Record<string, string | boolean>
   >({});
+  //used to handle the updated state
   const handleState = (id: string, value: string | boolean) => {
     changeFormState({ ...formState, [id]: value });
   };
@@ -72,9 +74,14 @@ const EmployeeForm = () => {
 
   return (
     <EmployeeFormStyles>
+      {/*Hero banner imported to display the hero image */}
       <HeroBanner heroBannerImage={WorkingBackground} />
+      {/*Skinny banner used to display page's title*/}
       <SkinnyBanner bannerHeading="Employee Details Form" />
       <h3>Please provide the following details:</h3>
+      {/*Form used to collect user's information*/}
+      {/*data is mapped from json file to dynamically render input component*/}
+      {/*When submit button is clicked the inputted data is sent to the server*/}
       <form onSubmit={handleSubmit}>
         {inputData.map(({ label, type, id }) => (
           <Input
