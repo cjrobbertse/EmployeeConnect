@@ -10,6 +10,7 @@ interface InputProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
   checked?: boolean;
   placeholder?: string;
+  maxLength?: number;
 }
 // Input easily combines the label and input components for use as a reusable component
 const Input = ({
@@ -20,12 +21,14 @@ const Input = ({
   id,
   checked,
   placeholder,
+  maxLength,
 }: InputProps) => {
   return (
     <InputStyles>
       <label htmlFor={id}>{label}</label>
       <br />
       <input
+        maxLength={maxLength}
         placeholder={placeholder}
         type={type}
         id={id}

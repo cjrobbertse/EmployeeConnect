@@ -3,13 +3,15 @@
     "id": "first_name",
     "label": "First Name",
     "type": "text",
-    "placeholder": "First Name"
+    "placeholder": "First Name",
+    "maxLength": 20
   },
   {
     "id": "last_name",
     "label": "Last Name",
     "type": "text",
-    "placeholder": "Last Name"
+    "placeholder": "Last Name",
+    "maxLength": 20
   },
   {
     "id": "date_of_birth",

@@ -67,9 +67,9 @@ const EmployeeForm = () => {
       {/*data is mapped from json file to dynamically render input component*/}
       {/*When submit button is clicked the inputted data is sent to the server*/}
       <form onSubmit={handleSubmit}>
-        {inputData.map(({ label, type, id, placeholder }) => (
+        {inputData.map(({ label, type, id, placeholder, maxLength }) => (
           <Input
-            {...{ id, label, type, placeholder }}
+            {...{ id, label, type, placeholder, maxLength }}
             {...(type === "checkbox"
               ? { checked: formState[id] as boolean }
               : { value: formState[id] as string })}
