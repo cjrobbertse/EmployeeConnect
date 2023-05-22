@@ -1,0 +1,22 @@
+[
+  {
+    "id": "first_name",
+    "label": "First Name",
+    "type": "text"
+  },
+  {
+    "id": "last_name",
+    "label": "Last Name",
+    "type": "text"
+  },
+  {
+    "id": "date_of_birth",
+    "label": "Date of birth",
+    "type": "date"
+  },
+  {
+    "label": "Please tick if you're employed",
+    "type": "checkbox",
+    "id": "employment"
+  }
+]
