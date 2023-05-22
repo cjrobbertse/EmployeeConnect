@@ -23,7 +23,6 @@ function App(): ReactElement {
       // Format the data and display it in the HTML element
       const formattedData = (
         <>
-          <h3>New employee created</h3>
           <ul>
             <li>
               <strong>Name: </strong>
@@ -34,7 +33,7 @@ function App(): ReactElement {
               {jsonObject.age}
             </li>
             <li>
-              <strong>Employment: </strong>
+              <strong>Employed?: </strong>
               {`${jsonObject.employment}`}
             </li>
           </ul>

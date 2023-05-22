@@ -1,4 +1,5 @@
 import React, { useState, FormEventHandler, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import inputData from "../../components/Input/inputData.json";
 import EmployeeFormStyles from "./EmployeeFormStyles";
@@ -24,6 +25,7 @@ function calculateAge(dateOfBirth: string) {
 }
 
 const EmployeeForm = () => {
+  const navigate = useNavigate();
   // Used to handle the state inputted into the form
   const [formState, changeFormState] = useState<
     Record<string, string | boolean>
@@ -51,6 +53,7 @@ const EmployeeForm = () => {
 
     // Send the JSON string to the server
     socket?.send(jsonString);
+    navigate("/employee-details");
   };
 
   return (
@@ -81,7 +84,6 @@ const EmployeeForm = () => {
           />
         ))}
         <button type="submit">Submit</button>
-        <pre>{JSON.stringify(formState, null, 2)}</pre>
       </form>
     </EmployeeFormStyles>
   );
