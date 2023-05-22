@@ -2,14 +2,16 @@ import styled from "styled-components";
 
 const NavBarStyles = styled.div`
   background-color: #4d5866;
-  height: 70px;
+  height: 80px;
   width: 100%;
   box-shadow: 1px 1px 3px #373535;
+  position: fixed;
+  top: 0;
+  margin-bottom: 2rem;
   & h1 {
     font-size: 30px;
     color: white;
     margin-left: 14%;
-    margin-top: -35px;
     text-shadow: 2px 2px 3px #000;
     cursor: default;
   }

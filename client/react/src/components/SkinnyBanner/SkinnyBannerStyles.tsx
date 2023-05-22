@@ -5,7 +5,7 @@ const SkinnyBannerStyles = styled.div`
   text-align: center;
   height: 100px;
   color: white;
-  transform: translateY(-50px);
+  margin-top: 7%;
 
   h2 {
     padding-top: 20px;
