@@ -16,7 +16,9 @@
   {
     "id": "date_of_birth",
     "label": "Date of birth",
-    "type": "date"
+    "type": "date",
+    "minDate": "1923-05-22",
+    "maxDate": "2011-05-22"
   },
   {
     "label": "Please tick if you're employed",

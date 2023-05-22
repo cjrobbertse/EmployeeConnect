@@ -11,6 +11,8 @@ interface InputProps {
   checked?: boolean;
   placeholder?: string;
   maxLength?: number;
+  maxDate?: string;
+  minDate?: string;
 }
 // Input easily combines the label and input components for use as a reusable component
 const Input = ({
@@ -22,12 +24,16 @@ const Input = ({
   checked,
   placeholder,
   maxLength,
+  maxDate,
+  minDate,
 }: InputProps) => {
   return (
     <InputStyles>
       <label htmlFor={id}>{label}</label>
       <br />
       <input
+        min={minDate}
+        max={maxDate}
         maxLength={maxLength}
         placeholder={placeholder}
         type={type}
