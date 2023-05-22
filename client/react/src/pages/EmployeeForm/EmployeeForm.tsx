@@ -1,31 +1,11 @@
-import React, { useState, FormEventHandler } from "react";
+import React, { useState, FormEventHandler, useContext } from "react";
 import Input from "../../components/Input/Input";
 import inputData from "../../components/Input/inputData.json";
 import EmployeeFormStyles from "./EmployeeFormStyles";
 import SkinnyBanner from "../../components/SkinnyBanner/SkinnyBanner";
 import HeroBanner from "../../components/HeroBanner/HeroBanner";
 import WorkingBackground from "../../../public/assets/images/working-background.png";
-
-const socket = new WebSocket("ws://localhost:8080");
-
-// Connection opened
-socket.addEventListener("open", (event) => {
-  console.log("Connected to server");
-});
-
-// Listen for messages
-socket.addEventListener("message", (event) => {
-  const jsonObject = JSON.parse(event.data);
-  // Format the data and display it in the HTML element
-  const formattedData = `
-        New employee created<br>
-        Name: ${jsonObject.first_name} ${jsonObject.last_name}<br>
-        Age: ${jsonObject.age}<br>
-        Employment: ${jsonObject.employment}<br><br>
-    `;
-
-  console.log(formattedData);
-});
+import { SocketContext } from "../../App";
 
 function calculateAge(dateOfBirth: string) {
   const birthDate = new Date(dateOfBirth);
@@ -48,6 +28,7 @@ const EmployeeForm = () => {
   const [formState, changeFormState] = useState<
     Record<string, string | boolean>
   >({});
+  const [socket] = useContext(SocketContext);
   //used to handle the updated state
   const handleState = (id: string, value: string | boolean) => {
     changeFormState({ ...formState, [id]: value });
@@ -69,7 +50,7 @@ const EmployeeForm = () => {
     console.log(jsonString);
 
     // Send the JSON string to the server
-    socket.send(jsonString);
+    socket?.send(jsonString);
   };
 
   return (
@@ -83,18 +64,19 @@ const EmployeeForm = () => {
       {/*data is mapped from json file to dynamically render input component*/}
       {/*When submit button is clicked the inputted data is sent to the server*/}
       <form onSubmit={handleSubmit}>
-        {inputData.map(({ label, type, id }) => (
+        {inputData.map(({ label, type, id, placeholder }) => (
           <Input
+            {...{ id, label, type, placeholder }}
             {...(type === "checkbox"
-              ? { label, type, id, checked: formState[id] as boolean }
-              : {
-                  label,
-                  type,
-                  id,
-                  value: formState[id] as string,
-                })}
+              ? { checked: formState[id] as boolean }
+              : { value: formState[id] as string })}
             onChange={(e) =>
-              handleState(id, e.currentTarget.value || e.currentTarget.checked)
+              handleState(
+                id,
+                type === "checkbox"
+                  ? e.currentTarget.checked
+                  : e.currentTarget.value || ""
+              )
             }
           />
         ))}

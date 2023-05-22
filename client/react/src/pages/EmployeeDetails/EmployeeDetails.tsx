@@ -5,6 +5,7 @@ import EmployeeFormStyles from "./EmployeeFormStyles";
 import SkinnyBanner from "../../components/SkinnyBanner/SkinnyBanner";
 import HeroBanner from "../../components/HeroBanner/HeroBanner";
 import LaptopBackground from "../../../public/assets/images/laptop-background.png";
+import { SocketContext } from "../../App";
 
 const EmployeeDetails = () => {
   return (
@@ -14,6 +15,9 @@ const EmployeeDetails = () => {
       {/*Skinny banner used to display page's title*/}
       <SkinnyBanner bannerHeading="Employee Details" />
       <h3>Please provide the following details:</h3>
+      <SocketContext.Consumer>
+        {([socket, messages]) => messages}
+      </SocketContext.Consumer>
     </EmployeeFormStyles>
   );
 };
