@@ -43,7 +43,15 @@ async function validateMessage(message) {
     return { error: null, employee: employeeJSON }
 }
 
+function logEmployee(employee) {
+    console.log(`
+    New Employee Created:
+    Name: 
+    `)
+}
+
 function broadcastNewEmployee (employee) {
+    logEmployee(employee)
     const employeePayload = {
         employee: employee
     }
