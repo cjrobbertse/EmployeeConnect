@@ -5,6 +5,15 @@ import EmployeeForm from "./pages/EmployeeForm/EmployeeForm";
 import EmployeeDetails from "./pages/EmployeeDetails/EmployeeDetails";
 import Layout from "./components/Layout/Layout";
 
+export interface EmployeeDetails {
+  employee: {
+    age: number;
+    employment: boolean;
+    first_name: string;
+    last_name: string;
+  };
+}
+
 //Establishes new websocket connection
 const socket = new WebSocket("ws://localhost:8080");
 // Connection opened
@@ -16,33 +25,33 @@ export const SocketContext = createContext<[WebSocket?, JSX.Element[]?]>([]);
 function App(): ReactElement {
   const [messages, changeMessages] = useState<JSX.Element[]>([]);
 
-  useEffect(() => {
-    // Listen for messages
-    socket.addEventListener("message", (event) => {
-      const jsonObject = JSON.parse(event.data);
+  // Listen for messages
+  socket.addEventListener("message", (event) => {
+    const { employee }: EmployeeDetails = JSON.parse(event.data);
+    if (employee) {
       // Format the data and display it in the HTML element
       const formattedData = (
         <>
           <ul>
             <li>
               <strong>Name: </strong>
-              {jsonObject.first_name} {jsonObject.last_name}
+              {employee.first_name} {employee.last_name}
             </li>
             <li>
               <strong>Age: </strong>
-              {jsonObject.age}
+              {employee.age}
             </li>
             <li>
               <strong>Employed?: </strong>
-              {`${jsonObject.employment}`}
+              {`${employee.employment}`}
             </li>
           </ul>
         </>
       );
 
       changeMessages([...messages, formattedData]);
-    });
-  }, []);
+    }
+  });
 
   return (
     <SocketContext.Provider value={[socket, messages]}>
