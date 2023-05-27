@@ -29,7 +29,9 @@ const EmployeeForm = () => {
   // Used to handle the state inputted into the form
   const [formState, changeFormState] = useState<
     Record<string, string | boolean>
-  >({});
+  >({
+    employment: false,
+  });
   const [socket] = useContext(SocketContext);
   //used to handle the updated state
   const handleState = (id: string, value: string | boolean) => {
