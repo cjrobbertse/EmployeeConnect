@@ -68,9 +68,29 @@ const EmployeeForm = () => {
       {/*When submit button is clicked the inputted data is sent to the server*/}
       <form onSubmit={handleSubmit}>
         {inputData.map(
-          ({ label, type, id, placeholder, maxLength, minDate, maxDate }) => (
+          ({
+            label,
+            type,
+            id,
+            placeholder,
+            maxLength,
+            minDate,
+            maxDate,
+            minLength,
+            required,
+          }) => (
             <Input
-              {...{ id, label, type, placeholder, maxLength, minDate, maxDate }}
+              {...{
+                id,
+                label,
+                type,
+                placeholder,
+                maxLength,
+                minDate,
+                maxDate,
+                minLength,
+                required,
+              }}
               {...(type === "checkbox"
                 ? { checked: formState[id] as boolean }
                 : { value: formState[id] as string })}
