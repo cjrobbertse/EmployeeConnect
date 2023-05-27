@@ -45,8 +45,10 @@ async function validateMessage(message) {
 
 function logEmployee(employee) {
     console.log(`
-    New Employee Created:
-    Name: 
+    New Employee Created!
+    Full Name: ${employee.first_name} ${employee.last_name}
+    Age: ${employee.age}
+    Employment: ${employee.employment}
     `)
 }
 
