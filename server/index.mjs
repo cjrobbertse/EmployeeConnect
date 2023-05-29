@@ -1,15 +1,17 @@
-import { WebSocketServer, WebSocket } from 'ws'
-import Joi from "joi";
+import { WebSocketServer, WebSocket } from 'ws'  // Import WebSocket node module
+import Joi from "joi"  // Import JSON schema validation node module
 
-const server = new WebSocketServer({port: 8080})
-console.log('The server started successfully.\nThe server awaits connections...')
+const server = new WebSocketServer({port: 8080})  // Start the WebSocket server on port 8080
+console.log('The server started successfully.\nThe server awaits connections...')  // Log server start
 
+// Define Employee JSON schema rules
 const employeeSchema = Joi.object({
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
-    age: Joi.number().integer().min(0).required(),
-    employment: Joi.boolean().required(),
+    first_name: Joi.string().required(),  // Type: string, Required: true
+    last_name: Joi.string().required(),  // Type: string, Required: true
+    age: Joi.number().integer().min(0).required(),  // Type: integer number, minimum: 0, Required: true
+    employment: Joi.boolean().required(),  // Type: boolean, Required: true
 })
+
 
 function parseMessageToJSON(message) {
     const messageString = message.toString()
